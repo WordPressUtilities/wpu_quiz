@@ -3,7 +3,7 @@
 Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
-Description: Simple quiz plugin for WordPress.w
+Description: Simple quiz plugin for WordPress.
 Version: 0.0.1
 Author: darklg
 Author URI: https://darklg.me/
@@ -44,9 +44,6 @@ class WPUQuiz {
         });
         add_action('save_post', array(&$this, 'save_quiz'));
 
-        /* FRONT */
-        //add_action('wp_ajax_wpuquiz_ajax_action', array(&$this, 'wpuquiz_ajax_action'));
-        //add_action('wp_ajax_nopriv_wpuquiz_ajax_action', array(&$this, 'wpuquiz_ajax_action'));
         /* SHORTCODE */
         add_shortcode('wpuquiz', array(&$this, 'render_quiz_shortcode'));
     }
@@ -102,7 +99,7 @@ class WPUQuiz {
             )
         );
         require_once __DIR__ . '/inc/WPUBaseSettings/WPUBaseSettings.php';
-        $this->settings_obj = new \wpuquiz\WPUBaseSettings($this->settings_details, $this->settings);
+        //$this->settings_obj = new \wpuquiz\WPUBaseSettings($this->settings_details, $this->settings);
     }
 
     public function admin_enqueue_scripts() {
@@ -203,12 +200,6 @@ class WPUQuiz {
         include __DIR__ . '/inc/tpl/quiz-front.php';
         return ob_get_clean();
 
-    }
-
-    function wpuquiz_ajax_action() {
-        wp_send_json_success(array(
-            'ok' => '1'
-        ), 200);
     }
 }
 
