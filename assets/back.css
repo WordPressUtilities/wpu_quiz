@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+/* ----------------------------------------------------------
+  Question
+---------------------------------------------------------- */
+
+.quiz-question-answer {
+    margin: 1em 0;
+    padding: 1em;
+    border: 1px solid #ddd;
+}
+
+.quiz-answer {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+}

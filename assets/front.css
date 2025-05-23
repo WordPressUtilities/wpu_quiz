@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+/* ----------------------------------------------------------
+  Reset
+---------------------------------------------------------- */
+
+.wpu-quiz-front [data-visible="0"] {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: -999em;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
