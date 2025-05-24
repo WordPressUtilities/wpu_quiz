@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPU Quiz\n"
-"POT-Creation-Date: 2025-05-23 23:12+0200\n"
+"POT-Creation-Date: 2025-05-24 23:01+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -67,46 +67,82 @@ msgstr "Sauvegarder"
 msgid "Answer"
 msgstr "Réponse"
 
-#: .././inc/tpl/quiz-answer.php:9
+#: .././inc/tpl/quiz-answer.php:11
 msgid "Correct answer"
 msgstr "Réponse correcte"
+
+#: .././inc/tpl/quiz-answer.php:15 .././inc/tpl/quiz-question.php:17
+msgid "Remove"
+msgstr "Supprimer"
 
 #: .././inc/tpl/quiz-front.php:15
 msgid "Thank you!"
 msgstr "Merci !"
 
-#: .././inc/tpl/quiz-front.php:25
-msgid "Next"
-msgstr "Suivant"
-
-#: .././inc/tpl/quiz-front.php:25
-msgid "Finish"
-msgstr "Terminer"
-
-#: .././inc/tpl/quiz-question.php:3
+#: .././inc/tpl/quiz-question.php:4
 msgid "Question"
 msgstr "Question"
 
-#: .././inc/tpl/quiz-question.php:12
+#: .././inc/tpl/quiz-question.php:10
+msgid "Answers"
+msgstr "Réponses"
+
+#: .././inc/tpl/quiz-question.php:13
 msgid "Add Answer"
 msgstr "Ajouter une réponse"
 
-#: .././wpuquiz.php:66
+#: .././wpuquiz.php:45
+msgid "Questions"
+msgstr "Questions"
+
+#: .././wpuquiz.php:65
 msgid "Simple quiz plugin for WordPress."
 msgstr "Plugin de quiz simple pour WordPress."
 
-#: .././wpuquiz.php:73 .././wpuquiz.php:77
+#: .././wpuquiz.php:72 .././wpuquiz.php:76
 msgid "Quiz"
 msgstr "Quiz"
 
-#: .././wpuquiz.php:95
+#: .././wpuquiz.php:94
 msgid "Import Settings"
 msgstr "Paramètres d'importation"
 
-#: .././wpuquiz.php:101
+#: .././wpuquiz.php:100
 msgid "My Value"
 msgstr ""
 
-#: .././wpuquiz.php:151
+#: .././wpuquiz.php:115
+msgid "Are you sure you want to remove this?"
+msgstr "Êtes-vous sûr de vouloir supprimer ceci?"
+
+#: .././wpuquiz.php:117
+msgid "You must add at least one question."
+msgstr "Vous devez ajouter au moins une question."
+
+#: .././wpuquiz.php:118
+msgid "A question is missing text."
+msgstr "Il manque du texte à une question."
+
+#: .././wpuquiz.php:119
+msgid "A question is missing answers."
+msgstr "Il manque des réponses à une question."
+
+#: .././wpuquiz.php:120
+msgid "An answer is missing text."
+msgstr "Il manque du text à une réponse."
+
+#: .././wpuquiz.php:121
+msgid "A question is missing a correct answer."
+msgstr "Il manque une réponse correcte à une question."
+
+#: .././wpuquiz.php:161
 msgid "Add a question"
 msgstr "Ajouter une question"
+
+#: .././wpuquiz.php:234
+msgid "Next"
+msgstr "Suivant"
+
+#: .././wpuquiz.php:234
+msgid "Finish"
+msgstr "Terminer"

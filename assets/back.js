@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function(e) {
+document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
     var $wrapper = document.getElementById('quiz-questions-wrapper');
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
             _answer.id = 'a' + _question.id + (Math.random() + 1).toString(36);
         }
         if (!_answer.hasOwnProperty('order') || !_answer.order) {
-            _answer.order = document.querySelectorAll('.quiz-answer-text').length + 1;
+            _answer.order = document.querySelectorAll('.quiz-answer-wrapper').length + 1;
         }
         if (_answer.correct === undefined) {
             _answer.correct = 0;
@@ -65,8 +65,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
         /* Build answers */
         var $answers_wrapper = $question.querySelector('.quiz-answers-wrapper');
 
-
-
         for (var j in _question.answers) {
             add_answer_to_question($answers_wrapper, _question, _question.answers[j]);
         }
@@ -82,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
         answer_html = answer_html.replace(/##answer_id##/g, _answer.id);
         answer_html = answer_html.replace(/##answer_order##/g, _answer.order);
         answer_html = answer_html.replace(/##answer_text##/g, _answer.text);
-        console.log(_answer);
         answer_html = answer_html.replace(/##correct_answer##/g, (_answer.correct ? 'checked' : ''));
 
         var $answer = document.createElement('div');
@@ -107,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
       Build form
     ---------------------------------------------------------- */
 
-    for(var i in quiz_questions) {
+    for (var i in quiz_questions) {
         add_question_to_form(quiz_questions[i]);
     }
 
@@ -123,16 +120,101 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     /* Add a new answer */
     document.body.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('quiz-answer-add-button')) {
-            e.preventDefault();
-            var $questionDiv = e.target.closest('.quiz-question-answer');
-            var $answers_wrapper = $questionDiv.querySelector('.quiz-answers-wrapper');
-            var _question = {
-                id: $questionDiv.getAttribute('data-question-id')
-            };
-            add_answer_to_question($answers_wrapper, _question);
+        if (!e.target || !e.target.classList.contains('quiz-answer-add-button')) {
+            return;
         }
+        e.preventDefault();
+        var $questionDiv = e.target.closest('.quiz-question-answer');
+        var $answers_wrapper = $questionDiv.querySelector('.quiz-answers-wrapper');
+        var _question = {
+            id: $questionDiv.getAttribute('data-question-id')
+        };
+        add_answer_to_question($answers_wrapper, _question);
     });
 
+    /* Remove an answer or a question */
+    document.body.addEventListener('click', function(e) {
+        if (!e.target || !e.target.getAttribute('data-quiz-action-remove')) {
+            return;
+        }
+        var $target = e.target.closest(e.target.getAttribute('data-quiz-action-remove'));
+        if (!$target) {
+            return;
+        }
+        e.preventDefault();
+        if (!confirm(wpuquiz_settings.__str_remove_confirm)) {
+            return;
+        }
+        $target.parentNode.removeChild($target);
+    });
+
+    /* Form validation */
+    function check_quiz(e) {
+        var allowSubmit = true;
+
+        /* A question has no answers or an answer is empty */
+        var $questions = document.querySelectorAll('.quiz-question-answer');
+        for (var i = 0; i < $questions.length; i++) {
+            if (!check_question($questions[i])) {
+                allowSubmit = false;
+                break;
+            }
+        }
+        if (!$questions || $questions.length === 0) {
+            alert(wpuquiz_settings.__str_missing_questions);
+            allowSubmit = false;
+        }
+
+        if (!allowSubmit) {
+            e.preventDefault();
+        }
+    }
+
+    function check_question($question) {
+
+        /* Missing text */
+        var $questionText = $question.querySelector('.quiz-question-text');
+        if (!$questionText || !$questionText.value) {
+            alert(wpuquiz_settings.__str_missing_question_text);
+            return false;
+        }
+
+        var questionText = $questionText.value.trim();
+
+        /* No answers */
+        var $answers = $question.querySelectorAll('.quiz-answer-text');
+        if ($answers.length === 0) {
+            alert(wpuquiz_settings.__str_missing_question_answers + "\n" + '-> "' + questionText + '"');
+            return false;
+        }
+
+        /* Empty answers */
+        for (var j = 0; j < $answers.length; j++) {
+            if ($answers[j].value.trim() === '') {
+                alert(wpuquiz_settings.__str_missing_answer_text + "\n" + '-> "' + questionText + '"');
+                return false;
+            }
+        }
+
+        /* No correct answer */
+        if (!$question.querySelector('.quiz-answer-correct-checkbox:checked')) {
+            alert(wpuquiz_settings.__str_missing_correct_answer + "\n" + '-> "' + questionText + '"');
+            return false;
+        }
+
+        return true;
+
+    }
+
+    var $form = document.querySelector('form#post');
+    if ($form) {
+        $form.addEventListener('submit', check_quiz);
+    }
+
+    /* Save button event */
+    var $saveBtn = document.getElementById('wpuquiz-save-quiz');
+    if ($saveBtn) {
+        $saveBtn.addEventListener('click', check_quiz);
+    }
 
 });

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function wpuquiz_setup_quiz($quiz) {
     var $list = $quiz.querySelector('.quiz-questions-list'),
         $result = $quiz.querySelector('.quiz-result'),
-        _original_question_template = $quiz.querySelector('.wpu-quiz-template').innerHTML,
+        _original_question_template = document.getElementById('wpu-quiz-template').innerHTML,
         _nb_good_answers = 0,
         _question_template = '';
 

@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.1
+Version: 0.0.3
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.1';
+    private $plugin_version = '0.0.3';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -35,12 +35,14 @@ class WPUQuiz {
         add_action('init', array(&$this, 'load_dependencies_settings'));
         add_action('init', array(&$this, 'load_translation'));
         add_action('init', array(&$this, 'register_post_type'));
+
+        /* ASSETS */
         add_action('admin_enqueue_scripts', array(&$this, 'admin_enqueue_scripts'));
         add_action('wp_enqueue_scripts', array(&$this, 'wp_enqueue_scripts'));
 
         /* ADMIN PAGE */
         add_action('add_meta_boxes', function () {
-            add_meta_box('wpu-quiz-box-id', 'quiz box', array(&$this, 'edit_page_quiz'), 'quiz');
+            add_meta_box('wpu-quiz-box-id', __('Questions', 'wpuquiz'), array(&$this, 'edit_page_quiz'), 'quiz');
         });
         add_action('save_post', array(&$this, 'save_quiz'));
 
@@ -108,6 +110,17 @@ class WPUQuiz {
         wp_enqueue_style('wpuquiz_back_style');
         /* Back Script */
         wp_register_script('wpuquiz_back_script', plugins_url('assets/back.js', __FILE__), array(), $this->plugin_version, true);
+        wp_localize_script('wpuquiz_back_script', 'wpuquiz_settings', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            '__str_remove_confirm' => __('Are you sure you want to remove this?', 'wpuquiz'),
+            /* Error messages */
+            '__str_missing_questions' => __('You must add at least one question.', 'wpuquiz'),
+            '__str_missing_question_text' => __('A question is missing text.', 'wpuquiz'),
+            '__str_missing_question_answers' => __('A question is missing answers.', 'wpuquiz'),
+            '__str_missing_answer_text' => __('An answer is missing text.', 'wpuquiz'),
+            '__str_missing_correct_answer' => __('A question is missing a correct answer.', 'wpuquiz')
+
+        ));
         wp_enqueue_script('wpuquiz_back_script');
     }
 
@@ -195,11 +208,24 @@ class WPUQuiz {
         if (!$quiz || $quiz->post_type !== 'quiz') {
             return '';
         }
+        /* Load template */
+        add_action('wp_footer', array(&$this, 'load_quiz_template'));
 
         ob_start();
         include __DIR__ . '/inc/tpl/quiz-front.php';
         return ob_get_clean();
 
+    }
+
+    function load_quiz_template() {
+
+        /* Load once */
+        if (defined('WPUQUIZ__TEMPLATE_INSERTED')) {
+            return;
+        }
+        define('WPUQUIZ__TEMPLATE_INSERTED', 1);
+
+        include __DIR__ . '/inc/tpl/quiz-front-template.php';
     }
 }
 

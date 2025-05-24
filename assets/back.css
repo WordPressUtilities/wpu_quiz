@@ -4,14 +4,54 @@
   Question
 ---------------------------------------------------------- */
 
-.quiz-question-answer {
+/* Common
+-------------------------- */
+
+.quiz-answer-wrapper label,
+.quiz-question-wrapper label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.quiz-answer-wrapper input[type="text"],
+.quiz-question-wrapper input[type="text"] {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+.quiz-question-answer,
+.quiz-answer {
+    z-index: 1;
+    position: relative;
     margin: 1em 0;
-    padding: 1em;
+    padding: 1.5em 1em 1em 1em;
     border: 1px solid #ddd;
 }
 
-.quiz-answer {
-    margin: 0.5em 0;
-    padding: 0.5em;
-    border: 1px solid #ddd;
+.quiz-question-remove,
+.quiz-answer-remove {
+    margin-top: 0.5em;
+    text-align: right;
+}
+
+/* Wrapper
+-------------------------- */
+
+.quiz-question-answer details {
+    margin-top: 1em;
+    padding: 1em;
+    background-color: #F9F9F9;
+}
+
+/* Answer
+-------------------------- */
+
+.quiz-answer-options input[type="checkbox"],
+.quiz-answer-options input[type="radio"],
+.quiz-answer-options label {
+    display: inline-block;
+    margin-top: 0;
+    vertical-align: middle;
 }
