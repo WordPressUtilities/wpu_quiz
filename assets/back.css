@@ -14,6 +14,7 @@
 }
 
 .quiz-answer-wrapper input[type="text"],
+.quiz-question-settings textarea,
 .quiz-question-wrapper input[type="text"] {
     display: block;
     box-sizing: border-box;
@@ -48,6 +49,7 @@
 /* Answer
 -------------------------- */
 
+.quiz-question-settings input[type="checkbox"],
 .quiz-answer-options input[type="checkbox"],
 .quiz-answer-options input[type="radio"],
 .quiz-answer-options label {

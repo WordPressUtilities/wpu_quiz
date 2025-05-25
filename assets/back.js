@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!_question.hasOwnProperty('order') || !_question.order) {
             _question.order = $wrapper.querySelectorAll('.quiz-question-answer').length + 1;
         }
+        if (_question.show_answer === undefined) {
+            _question.show_answer = 0;
+        }
+        if (!_question.explanation) {
+            _question.explanation = '';
+        }
         if (!_question.answers) {
             _question.answers = [get_answer(false, _question)];
         }
@@ -50,14 +56,26 @@ document.addEventListener('DOMContentLoaded', function() {
         return _answer;
     }
 
+    function htmlEntities(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+
+    }
+
     function add_question_to_form(_question) {
 
         /* Build question */
         var question_html = _question_template;
         _question = get_question(_question);
-        question_html = question_html.replace(/##question_id##/g, _question.id);
-        question_html = question_html.replace(/##question_text##/g, _question.question);
-        question_html = question_html.replace(/##question_order##/g, _question.order);
+        question_html = question_html.replace(/##question_id##/g, htmlEntities(_question.id));
+        question_html = question_html.replace(/##question_text##/g, htmlEntities(_question.question));
+        question_html = question_html.replace(/##question_order##/g, htmlEntities(_question.order));
+        question_html = question_html.replace(/##question_explanation##/g, htmlEntities(_question.explanation));
+        question_html = question_html.replace(/##show_answer##/g, (_question.show_answer ? 'checked' : ''));
 
         var $question = document.createElement('div');
         $question.innerHTML = question_html;
@@ -76,10 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function add_answer_to_question($answers_wrapper, _question, _answer) {
         var _answer = get_answer(_answer, get_question(_question));
         var answer_html = _answer_template;
-        answer_html = answer_html.replace(/##question_id##/g, _question.id);
-        answer_html = answer_html.replace(/##answer_id##/g, _answer.id);
-        answer_html = answer_html.replace(/##answer_order##/g, _answer.order);
-        answer_html = answer_html.replace(/##answer_text##/g, _answer.text);
+        answer_html = answer_html.replace(/##question_id##/g, htmlEntities(_question.id));
+        answer_html = answer_html.replace(/##answer_id##/g, htmlEntities(_answer.id));
+        answer_html = answer_html.replace(/##answer_order##/g, htmlEntities(_answer.order));
+        answer_html = answer_html.replace(/##answer_text##/g, htmlEntities(_answer.text));
         answer_html = answer_html.replace(/##correct_answer##/g, (_answer.correct ? 'checked' : ''));
 
         var $answer = document.createElement('div');

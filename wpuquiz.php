@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.3
+Version: 0.0.4
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.3';
+    private $plugin_version = '0.0.4';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -131,7 +131,9 @@ class WPUQuiz {
         /* Front Script with localization / variables */
         wp_register_script('wpuquiz_front_script', plugins_url('assets/front.js', __FILE__), array('wp-util'), $this->plugin_version, true);
         wp_localize_script('wpuquiz_front_script', 'wpuquiz_settings', array(
-            'ajax_url' => admin_url('admin-ajax.php')
+            'ajax_url' => admin_url('admin-ajax.php'),
+            '__str_good_answer' => __('Good answer', 'wpuquiz'),
+            '__str_wrong_answer' => __('Wrong answer', 'wpuquiz'),
         ));
         wp_enqueue_script('wpuquiz_front_script');
     }
@@ -179,7 +181,7 @@ class WPUQuiz {
             return false;
         }
 
-        if (!isset($_POST['quiz_question'])) {
+        if (!isset($_POST['quiz_question']) || !is_array($_POST['quiz_question'])) {
             return false;
         }
 
@@ -188,8 +190,91 @@ class WPUQuiz {
             wp_nonce_ays('');
         }
 
-        update_post_meta($post_id, 'quiz_questions', json_encode($_POST['quiz_question']));
+        $result = array();
+        foreach ($_POST['quiz_question'] as $id => $question) {
+            $result_question = $this->validate_question($question, $id);
+            if ($result_question) {
+                $result[$id] = $result_question;
+            }
+        }
 
+        update_post_meta($post_id, 'quiz_questions', json_encode($result));
+
+    }
+
+    function validate_question($question, $id) {
+        $result_question = array(
+            'explanation' => '',
+            'show_answer' => 0,
+            'id' => $id,
+            'answers' => array()
+        );
+
+        /* Question */
+        if (!isset($question['question']) || empty($question['question'])) {
+            return false;
+        }
+        $result_question['question'] = sanitize_text_field($question['question']);
+
+        /* Answers */
+        if (!isset($question['answers']) || !is_array($question['answers']) || empty($question['answers'])) {
+            return false;
+        }
+        foreach ($question['answers'] as $answer_id => $answer) {
+            $return_answer = $this->validate_answer($answer, $answer_id);
+            if ($return_answer) {
+                $result_question['answers'][$answer_id] = $return_answer;
+            }
+        }
+        if (empty($result_question['answers'])) {
+            return false;
+        }
+
+        /* Order */
+        if (!isset($question['order']) || !is_numeric($question['order'])) {
+            $question['order'] = microtime(true);
+        }
+        $result_question['order'] = $question['order'];
+
+        /* Explanation */
+        if (isset($question['explanation']) && !empty($question['explanation'])) {
+            $result_question['explanation'] = sanitize_text_field($question['explanation']);
+        }
+
+        /* Show answer */
+        if (isset($question['show_answer'])) {
+            $result_question['show_answer'] = 1;
+        }
+
+        return $result_question;
+
+    }
+
+    function validate_answer($answer, $answer_id) {
+        $result_answer = array(
+            'id' => $answer_id,
+            'text' => '',
+            'correct' => 0
+        );
+
+        /* Text */
+        if (!isset($answer['text']) || empty($answer['text'])) {
+            return false;
+        }
+        $result_answer['text'] = sanitize_text_field($answer['text']);
+
+        /* Correct */
+        if (isset($answer['correct'])) {
+            $result_answer['correct'] = 1;
+        }
+
+        /* Order */
+        if (!isset($answer['order']) || !is_numeric($answer['order'])) {
+            $answer['order'] = microtime(true);
+        }
+        $result_answer['order'] = $answer['order'];
+
+        return $result_answer;
     }
 
     /* ----------------------------------------------------------
