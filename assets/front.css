@@ -13,3 +13,24 @@
     height: 1px;
     overflow: hidden;
 }
+
+/* ----------------------------------------------------------
+  Nav bar
+---------------------------------------------------------- */
+
+.quiz-navbar-progress {
+    z-index: 1;
+    position: relative;
+    height: 1em;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.quiz-navbar-progress .bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #0073aa;
+    transition: width 0.3s ease-in-out;
+}

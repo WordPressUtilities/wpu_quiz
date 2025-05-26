@@ -11,9 +11,9 @@ Simple quiz plugin for WordPress.
 - [x] Force each question to have at least one answer and one correct answer
 - [x] Show correct answer after selection (option)
 - [x] Show an explanation after selection (option)
+- [x] Post type labels
 - [ ] Reorder questions
 - [ ] Reorder answers
-- [ ] Post type labels
 - [ ] Images for answer
 - [ ] Allow multiple good answers
 - [ ] Add quiz results based on number of correct answers
@@ -22,8 +22,8 @@ Simple quiz plugin for WordPress.
 - [ ] Plugin Option : load default style in frontend.
 
 ### Frontend
+- [x] Page numbers
 - [ ] Back button
-- [ ] Page numbers
 - [ ] Disable button until an answer is selected
 - [ ] Share quiz results
 - [ ] Save quiz results

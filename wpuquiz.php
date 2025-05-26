@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.4
+Version: 0.0.5
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.4';
+    private $plugin_version = '0.0.5';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -28,12 +28,14 @@ class WPUQuiz {
     private $settings;
     private $settings_obj;
     private $settings_details;
+    private $basefields;
     private $plugin_description;
 
     public function __construct() {
         /* INIT */
-        add_action('init', array(&$this, 'load_dependencies_settings'));
         add_action('init', array(&$this, 'load_translation'));
+        add_action('init', array(&$this, 'load_dependencies_settings'));
+        add_action('init', array(&$this, 'load_dependencies_base_fields'));
         add_action('init', array(&$this, 'register_post_type'));
 
         /* ASSETS */
@@ -42,7 +44,7 @@ class WPUQuiz {
 
         /* ADMIN PAGE */
         add_action('add_meta_boxes', function () {
-            add_meta_box('wpu-quiz-box-id', __('Questions', 'wpuquiz'), array(&$this, 'edit_page_quiz'), 'quiz');
+            add_meta_box('wpu-quiz-box-question', __('Questions', 'wpuquiz'), array(&$this, 'edit_page_quiz'), 'quiz');
         });
         add_action('save_post', array(&$this, 'save_quiz'));
 
@@ -74,7 +76,19 @@ class WPUQuiz {
             'show_in_nav_menus' => true,
             'show_ui' => true,
             'label' => __('Quiz', 'wpuquiz'),
-            'supports' => array('title', 'author')
+            'supports' => array('title', 'author'),
+            'labels' => array(
+                'name' => __('Quizzes', 'wpuquiz'),
+                'singular_name' => __('Quiz', 'wpuquiz'),
+                'add_new' => __('Add New', 'wpuquiz'),
+                'add_new_item' => __('Add New Quiz', 'wpuquiz'),
+                'edit_item' => __('Edit Quiz', 'wpuquiz'),
+                'new_item' => __('New Quiz', 'wpuquiz'),
+                'view_item' => __('View Quiz', 'wpuquiz'),
+                'search_items' => __('Search Quizzes', 'wpuquiz'),
+                'not_found' => __('No quizzes found.', 'wpuquiz'),
+                'not_found_in_trash' => __('No quizzes found in Trash.', 'wpuquiz')
+            )
         ));
     }
 
@@ -102,6 +116,25 @@ class WPUQuiz {
         );
         require_once __DIR__ . '/inc/WPUBaseSettings/WPUBaseSettings.php';
         //$this->settings_obj = new \wpuquiz\WPUBaseSettings($this->settings_details, $this->settings);
+    }
+
+    function load_dependencies_base_fields() {
+        require_once __DIR__ . '/inc/WPUBaseFields/WPUBaseFields.php';
+        $fields = array(
+            'wpuquiz_show_navbar' => array(
+                'group' => 'wpuquiz_settings',
+                'label' => __('Show nav bar', 'wpu_quiz'),
+                'type' => 'checkbox',
+                'required' => false
+            ),
+        );
+        $field_groups = array(
+            'wpuquiz_settings' => array(
+                'label' => __('Settings', 'wpu_quiz'),
+                'post_type' => 'quiz',
+            )
+        );
+        $this->basefields = new \wpu_quiz\WPUBaseFields($fields, $field_groups);
     }
 
     public function admin_enqueue_scripts() {
@@ -133,7 +166,7 @@ class WPUQuiz {
         wp_localize_script('wpuquiz_front_script', 'wpuquiz_settings', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             '__str_good_answer' => __('Good answer', 'wpuquiz'),
-            '__str_wrong_answer' => __('Wrong answer', 'wpuquiz'),
+            '__str_wrong_answer' => __('Wrong answer', 'wpuquiz')
         ));
         wp_enqueue_script('wpuquiz_front_script');
     }

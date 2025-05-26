@@ -74,6 +74,13 @@ function wpuquiz_setup_quiz($quiz) {
             $question.setAttribute('data-visible', '0');
             $next_question.setAttribute('data-visible', '1');
         }
+
+        var current_page = parseInt($question.getAttribute('data-i'), 10);
+        $quiz.dispatchEvent(new CustomEvent('wpuquiz:pagechange', {
+            detail: {
+                current_page: current_page + 1
+            }
+        }));
     }
 
     /* Build questions */
@@ -109,6 +116,7 @@ function wpuquiz_setup_quiz($quiz) {
             var $button = $question.querySelector('.quiz-action-next');
             $question.setAttribute('data-visible', i === 0 ? '1' : '0');
             $question.setAttribute('data-question-id', questions[i].id);
+            $question.setAttribute('data-i', i);
             var _button_label = $button.getAttribute(i == _last_question ? 'data-label-submit' : 'data-label-next');
             $button.setAttribute('data-label', _button_label);
             if (questions[i].explanation || questions[i].show_answer) {
@@ -128,6 +136,38 @@ function wpuquiz_setup_quiz($quiz) {
             $list.appendChild($question);
         }());
     }
+
+    /* Build navbar */
+    (function() {
+        /* Elements */
+        var $navbar = $quiz.querySelector('.quiz-navbar');
+        if (!$navbar) {
+            return;
+        }
+        var $navbar_progress = $navbar.querySelector('.quiz-navbar-progress .bar'),
+            $navbar_count = $navbar.querySelector('.quiz-navbar-count');
+
+        /* Watch page change */
+        $quiz.addEventListener('wpuquiz:pagechange', function(e) {
+            var currentPage = e.detail.current_page,
+                progress = Math.round((currentPage + 1 / questions.length) * 100);
+
+            if (currentPage + 1 > questions.length) {
+                $navbar.setAttribute('data-visible', '0');
+            }
+
+            $navbar_progress.style.width = progress + '%';
+            $navbar_count.innerHTML = (currentPage + 1) + '/' + questions.length;
+        });
+
+        /* Trigger initial */
+        $quiz.dispatchEvent(new CustomEvent('wpuquiz:pagechange', {
+            detail: {
+                current_page: 0
+            }
+        }));
+
+    }());
 }
 
 
