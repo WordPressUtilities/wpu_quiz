@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.5
+Version: 0.0.6
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.5';
+    private $plugin_version = '0.0.6';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -28,7 +28,6 @@ class WPUQuiz {
     private $settings;
     private $settings_obj;
     private $settings_details;
-    private $basefields;
     private $plugin_description;
 
     public function __construct() {
@@ -123,18 +122,18 @@ class WPUQuiz {
         $fields = array(
             'wpuquiz_show_navbar' => array(
                 'group' => 'wpuquiz_settings',
-                'label' => __('Show nav bar', 'wpu_quiz'),
+                'label' => __('Show nav bar', 'wpuquiz'),
                 'type' => 'checkbox',
                 'required' => false
-            ),
+            )
         );
         $field_groups = array(
             'wpuquiz_settings' => array(
-                'label' => __('Settings', 'wpu_quiz'),
-                'post_type' => 'quiz',
+                'label' => __('Settings', 'wpuquiz'),
+                'post_type' => 'quiz'
             )
         );
-        $this->basefields = new \wpu_quiz\WPUBaseFields($fields, $field_groups);
+        new \wpu_quiz\WPUBaseFields($fields, $field_groups);
     }
 
     public function admin_enqueue_scripts() {
@@ -142,7 +141,11 @@ class WPUQuiz {
         wp_register_style('wpuquiz_back_style', plugins_url('assets/back.css', __FILE__), array(), $this->plugin_version);
         wp_enqueue_style('wpuquiz_back_style');
         /* Back Script */
-        wp_register_script('wpuquiz_back_script', plugins_url('assets/back.js', __FILE__), array(), $this->plugin_version, true);
+        wp_register_script('wpuquiz_back_script', plugins_url('assets/back.js', __FILE__), array(
+            'jquery',
+            'jquery-ui-core',
+            'jquery-ui-sortable'
+        ), $this->plugin_version, true);
         wp_localize_script('wpuquiz_back_script', 'wpuquiz_settings', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             '__str_remove_confirm' => __('Are you sure you want to remove this?', 'wpuquiz'),

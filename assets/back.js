@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         $wrapper.appendChild($question);
+        refresh_questions_order();
     }
 
     function add_answer_to_question($answers_wrapper, _question, _answer) {
@@ -106,6 +107,14 @@ document.addEventListener('DOMContentLoaded', function() {
         $answers_wrapper.appendChild($answer);
     }
 
+    function refresh_questions_order() {
+        Array.prototype.forEach.call($wrapper.querySelectorAll('.quiz-question-input-order'), function(el, i) {
+            el.setAttribute('value', i + 1);
+            Array.prototype.forEach.call(el.querySelectorAll('.quiz-answer-input-order'), function(el, i) {
+                el.setAttribute('value', i + 1);
+            });
+        });
+    }
 
     /* ----------------------------------------------------------
       Build vars
@@ -134,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('wpuquiz-add-question').addEventListener('click', function(e) {
         e.preventDefault();
         add_question_to_form();
+        sortable_questions_refresh();
     });
 
     /* Add a new answer */
@@ -148,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: $questionDiv.getAttribute('data-question-id')
         };
         add_answer_to_question($answers_wrapper, _question);
+        sortable_questions_refresh();
     });
 
     /* Remove an answer or a question */
@@ -164,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         $target.parentNode.removeChild($target);
+        sortable_questions_refresh();
     });
 
     /* Form validation */
@@ -234,5 +246,43 @@ document.addEventListener('DOMContentLoaded', function() {
     if ($saveBtn) {
         $saveBtn.addEventListener('click', check_quiz);
     }
+
+
+    /* ----------------------------------------------------------
+      Sortable
+    ---------------------------------------------------------- */
+
+    var $questionWrapper = jQuery($wrapper);
+    $questionWrapper.sortable({
+        handle: '.quiz-question-sortable-handle',
+        axis: "y",
+        update: function() {
+            refresh_questions_order();
+        }
+    });
+
+    function sortable_questions_refresh() {
+        $questionWrapper.sortable('refresh');
+        make_answers_sortable();
+    }
+
+    /* Make answers sortable inside each question */
+    function make_answers_sortable() {
+        jQuery('.quiz-answers-wrapper').each(function() {
+            var $answersWrapper = jQuery(this);
+            if ($answersWrapper.hasClass('ui-sortable')) {
+                $answersWrapper.sortable('refresh');
+            } else {
+                $answersWrapper.sortable({
+                    handle: '.quiz-answer-sortable-handle',
+                    axis: "y",
+                    update: function() {
+                        refresh_questions_order();
+                    }
+                });
+            }
+        });
+    }
+    make_answers_sortable();
 
 });

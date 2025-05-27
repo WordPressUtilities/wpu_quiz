@@ -37,6 +37,31 @@
     text-align: right;
 }
 
+/* Handle
+-------------------------- */
+
+.quiz-answer {
+    background-color: #F9F9F9;
+}
+
+.quiz-question-answer {
+    background-color: #fff;
+}
+
+.quiz-answer-wrapper,
+.quiz-question-wrapper {
+    z-index: 1;
+    position: relative;
+}
+
+.quiz-answer-sortable-handle,
+.quiz-question-sortable-handle {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 /* Wrapper
 -------------------------- */
 

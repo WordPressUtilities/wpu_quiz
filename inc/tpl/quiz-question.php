@@ -4,7 +4,8 @@
         <label for="quiz-question-##question_id##"><?php echo __('Question', 'wpuquiz') ?></label>
         <input class="quiz-question-text" type="text" id="quiz-question-##question_id##" name="quiz_question[##question_id##][question]" value="##question_text##" />
         <input type="hidden" name="quiz_question[##question_id##][id]" value="##question_id##" />
-        <input type="hidden" name="quiz_question[##question_id##][order]" value="##question_order##" />
+        <input class="quiz-question-input-order" type="hidden" name="quiz_question[##question_id##][order]" value="##question_order##" />
+        <div class="quiz-question-sortable-handle"><span class="dashicons dashicons-move"></span></div>
     </div>
     <?php /* Answers */?>
     <details>

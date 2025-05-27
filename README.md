@@ -12,8 +12,8 @@ Simple quiz plugin for WordPress.
 - [x] Show correct answer after selection (option)
 - [x] Show an explanation after selection (option)
 - [x] Post type labels
-- [ ] Reorder questions
-- [ ] Reorder answers
+- [x] Reorder questions
+- [x] Reorder answers
 - [ ] Images for answer
 - [ ] Allow multiple good answers
 - [ ] Add quiz results based on number of correct answers
