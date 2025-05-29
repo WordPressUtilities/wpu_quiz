@@ -82,3 +82,15 @@
     margin-top: 0;
     vertical-align: middle;
 }
+
+/* Settings
+-------------------------- */
+
+.quiz-question-settings > div {
+    margin-top: 0.5em;
+}
+
+.quiz-question-explanation label {
+    display: block;
+    margin-bottom: 0.25em;
+}

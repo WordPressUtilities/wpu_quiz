@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPU Quiz\n"
-"POT-Creation-Date: 2025-05-27 23:54+0200\n"
+"POT-Creation-Date: 2025-05-29 23:20+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -56,7 +56,7 @@ msgstr "Ce champ est invalide"
 #: .././inc/WPUBaseSettings/WPUBaseSettings.php:132
 #: .././inc/WPUBaseSettings/WPUBaseSettings.php:675
 #: .././inc/WPUBaseSettings/WPUBaseSettings.php:682
-#: .././inc/tpl/quiz-question.php:19 .././wpuquiz.php:132
+#: .././inc/tpl/quiz-question.php:19 .././wpuquiz.php:138
 msgid "Settings"
 msgstr "Réglages"
 
@@ -116,7 +116,7 @@ msgstr "Suivant"
 msgid "Finish"
 msgstr "Terminer"
 
-#: .././inc/tpl/quiz-front.php:27
+#: .././inc/tpl/quiz-front.php:31
 msgid "Thank you!"
 msgstr "Merci !"
 
@@ -189,49 +189,56 @@ msgid "No quizzes found in Trash."
 msgstr "Aucun quiz trouvé dans la corbeille."
 
 #: .././wpuquiz.php:107
-msgid "Import Settings"
-msgstr "Paramètres d'importation"
+msgid "Quiz Settings"
+msgstr "Paramètres du quiz"
 
 #: .././wpuquiz.php:113
-msgid "My Value"
-msgstr ""
+msgid "Load default CSS"
+msgstr "Charger le CSS par défaut"
 
 #: .././wpuquiz.php:125
 msgid "Show nav bar"
 msgstr "Afficher la barre de navigation"
 
-#: .././wpuquiz.php:151
+#: .././wpuquiz.php:131
+msgid "Show Quiz title"
+msgstr "Afficher le titre du quiz"
+
+#: .././wpuquiz.php:157
 msgid "Are you sure you want to remove this?"
 msgstr "Êtes-vous sûr de vouloir supprimer ceci?"
 
-#: .././wpuquiz.php:153
+#: .././wpuquiz.php:159
 msgid "You must add at least one question."
 msgstr "Vous devez ajouter au moins une question."
 
-#: .././wpuquiz.php:154
+#: .././wpuquiz.php:160
 msgid "A question is missing text."
 msgstr "Il manque du texte à une question."
 
-#: .././wpuquiz.php:155
+#: .././wpuquiz.php:161
 msgid "A question is missing answers."
 msgstr "Il manque des réponses à une question."
 
-#: .././wpuquiz.php:156
+#: .././wpuquiz.php:162
 msgid "An answer is missing text."
 msgstr "Il manque du text à une réponse."
 
-#: .././wpuquiz.php:157
+#: .././wpuquiz.php:163
 msgid "A question is missing a correct answer."
 msgstr "Il manque une réponse correcte à une question."
 
-#: .././wpuquiz.php:171
+#: .././wpuquiz.php:184
 msgid "Good answer"
 msgstr "Bonne réponse"
 
-#: .././wpuquiz.php:172
+#: .././wpuquiz.php:185
 msgid "Wrong answer"
 msgstr "Mauvaise réponse"
 
-#: .././wpuquiz.php:199
+#: .././wpuquiz.php:212
 msgid "Add a question"
 msgstr "Ajouter une question"
+
+#~ msgid "Import Settings"
+#~ msgstr "Paramètres d'importation"

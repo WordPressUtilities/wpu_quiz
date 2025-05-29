@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.6
+Version: 0.0.7
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.6';
+    private $plugin_version = '0.0.7';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -103,18 +103,18 @@ class WPUQuiz {
             'plugin_id' => $this->plugin_settings['id'],
             'option_id' => $this->plugin_settings['id'] . '_options',
             'sections' => array(
-                'import' => array(
-                    'name' => __('Import Settings', 'wpuquiz')
+                'quiz' => array(
+                    'name' => __('Quiz Settings', 'wpuquiz')
                 )
             )
         );
         $this->settings = array(
-            'value' => array(
-                'label' => __('My Value', 'wpuquiz')
+            'ignore_default_theme' => array(
+                'label' => __('Load default CSS', 'wpuquiz')
             )
         );
         require_once __DIR__ . '/inc/WPUBaseSettings/WPUBaseSettings.php';
-        //$this->settings_obj = new \wpuquiz\WPUBaseSettings($this->settings_details, $this->settings);
+        $this->settings_obj = new \wpuquiz\WPUBaseSettings($this->settings_details, $this->settings);
     }
 
     function load_dependencies_base_fields() {
@@ -125,7 +125,13 @@ class WPUQuiz {
                 'label' => __('Show nav bar', 'wpuquiz'),
                 'type' => 'checkbox',
                 'required' => false
-            )
+            ),
+            'wpuquiz_show_title' => array(
+                'group' => 'wpuquiz_settings',
+                'label' => __('Show Quiz title', 'wpuquiz'),
+                'type' => 'checkbox',
+                'required' => false
+            ),
         );
         $field_groups = array(
             'wpuquiz_settings' => array(
@@ -164,6 +170,13 @@ class WPUQuiz {
         /* Front Style */
         wp_register_style('wpuquiz_front_style', plugins_url('assets/front.css', __FILE__), array(), $this->plugin_version);
         wp_enqueue_style('wpuquiz_front_style');
+
+        $ignore_default_theme = $this->settings_obj->get_setting('ignore_default_theme');
+        if(!$ignore_default_theme ) {
+            wp_register_style('wpuquiz_frontdefault_style', plugins_url('assets/front-default.css', __FILE__), array(), $this->plugin_version);
+            wp_enqueue_style('wpuquiz_frontdefault_style');
+        }
+
         /* Front Script with localization / variables */
         wp_register_script('wpuquiz_front_script', plugins_url('assets/front.js', __FILE__), array('wp-util'), $this->plugin_version, true);
         wp_localize_script('wpuquiz_front_script', 'wpuquiz_settings', array(

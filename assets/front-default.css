@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+/* ----------------------------------------------------------
+  Quiz
+---------------------------------------------------------- */
+
+.wpu-quiz-front {
+    padding: 20px;
+    border: 1px solid #ddd;
+    color: #333;
+    background-color: #fff;
+}
+
+.wpu-quiz-front .quiz-question-action {
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* Elements
+-------------------------- */
+
+.wpu-quiz-front .quiz-navbar {
+    margin-bottom: 20px;
+}
+
+.wpu-quiz-front .quiz-title {
+    margin: 0 0 20px;
+}
+
+/* Answers */
+
+.quiz-question-answer-item[data-has-correct-answer="0"] label {
+    text-decoration: line-through;
+}
+
+/* Answer type*/
+
+.quiz-question-answer:not(:empty) {
+    margin: 10px 0;
+}
+
+.quiz-answer-incorrect {
+    color: #a00;
+}
+
+.quiz-answer-correct {
+    color: #0a0;
+}
+
+/* Explanation */
+
+.quiz-question-explanation {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
