@@ -112,6 +112,23 @@ function wpuquiz_setup_quiz($quiz) {
         }));
     }
 
+    /* Splash screen */
+    (function() {
+        if ($quiz.getAttribute('data-quiz-has-splash') != '1') {
+            return;
+        };
+
+        $quiz.querySelector('.quiz-action-start').addEventListener('click', function(e) {
+            e.preventDefault();
+            $quiz.removeAttribute('data-quiz-has-splash');
+            $quiz.dispatchEvent(new CustomEvent('wpuquiz:pagechange', {
+                detail: {
+                    current_page: 0
+                }
+            }));
+        });
+    }());
+
     /* Build questions */
     var _questions = JSON.parse($quiz.querySelector('input[name="quiz_content"]').value),
         questions = wpuquiz_convert_and_sort(_questions),
@@ -190,11 +207,13 @@ function wpuquiz_setup_quiz($quiz) {
         });
 
         /* Trigger initial */
-        $quiz.dispatchEvent(new CustomEvent('wpuquiz:pagechange', {
-            detail: {
-                current_page: 0
-            }
-        }));
+        if ($quiz.getAttribute('data-quiz-has-splash') != '1') {
+            $quiz.dispatchEvent(new CustomEvent('wpuquiz:pagechange', {
+                detail: {
+                    current_page: 0
+                }
+            }));
+        }
 
     }());
 }

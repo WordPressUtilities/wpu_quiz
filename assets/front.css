@@ -4,6 +4,7 @@
   Reset
 ---------------------------------------------------------- */
 
+.wpu-quiz-front[data-quiz-has-splash="1"] .quiz-navbar,
 .wpu-quiz-front [data-visible="0"] {
     z-index: 1;
     position: absolute;
@@ -12,6 +13,15 @@
     width: 1px;
     height: 1px;
     overflow: hidden;
+}
+
+/* ----------------------------------------------------------
+  Splash
+---------------------------------------------------------- */
+
+.wpu-quiz-front[data-quiz-has-splash="1"] .quiz-questions,
+.wpu-quiz-front:not([data-quiz-has-splash="1"]) .quiz-splash {
+    display: none;
 }
 
 /* ----------------------------------------------------------
