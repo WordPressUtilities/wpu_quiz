@@ -7,13 +7,16 @@
 /* Common
 -------------------------- */
 
+.quiz-score-message label,
 .quiz-answer-wrapper label,
 .quiz-question-wrapper label {
     display: block;
     margin-bottom: 0.5em;
 }
 
+.quiz-score-message input[type="number"],
 .quiz-answer-wrapper input[type="text"],
+.quiz-score-message textarea,
 .quiz-question-settings textarea,
 .quiz-question-wrapper input[type="text"] {
     display: block;
@@ -22,6 +25,7 @@
     margin-bottom: 0.5em;
 }
 
+.quiz-score-message,
 .quiz-question-answer,
 .quiz-answer {
     z-index: 1;
@@ -40,6 +44,7 @@
 /* Handle
 -------------------------- */
 
+.quiz-score-message,
 .quiz-answer {
     background-color: #F9F9F9;
 }

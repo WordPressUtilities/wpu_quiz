@@ -14,12 +14,13 @@ Simple quiz plugin for WordPress.
 - [x] Post type labels
 - [x] Reorder questions
 - [x] Reorder answers
+- [x] Add quiz results based on score
+- [x] Quiz Option : Add an optional splash page before the quiz starts
+- [x] Plugin Option : load default style in frontend.
+- [ ] Reorder score messages
 - [ ] Images for answer
 - [ ] Allow multiple good answers
-- [ ] Add quiz results based on number of correct answers
 - [ ] Quiz Option : Show correct answer after selection
-- [ ] Quiz Option : Add an optional splash page before the quiz starts
-- [ ] Plugin Option : load default style in frontend.
 
 ### Frontend
 - [x] Page numbers

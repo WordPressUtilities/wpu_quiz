@@ -95,10 +95,7 @@ function wpuquiz_setup_quiz($quiz) {
         /* Go to next */
         var $next_question = $question.nextElementSibling;
         if (!$next_question) {
-            /* Show result */
-            $list.setAttribute('data-visible', '0');
-            $result.setAttribute('data-visible', '1');
-            $result.querySelector('.quiz-result-good-answers').innerHTML = _nb_good_answers + '/' + questions.length;
+            display_exit_page();
         } else {
             $question.setAttribute('data-visible', '0');
             $next_question.setAttribute('data-visible', '1');
@@ -216,6 +213,34 @@ function wpuquiz_setup_quiz($quiz) {
         }
 
     }());
+
+
+    function display_exit_page() {
+
+        /* Show result */
+        $list.setAttribute('data-visible', '0');
+        $result.setAttribute('data-visible', '1');
+        $result.querySelector('.quiz-result-good-answers').innerHTML = _nb_good_answers + '/' + questions.length;
+
+        /* Show scores */
+        var quiz_scores = JSON.parse($quiz.querySelector('input[name="quiz_scores"]').value);
+        if (quiz_scores) {
+            var _message = '',
+                $result_message = $result.querySelector('.quiz-result-message-score');
+
+            /* Sort */
+            quiz_scores = wpuquiz_convert_and_sort(quiz_scores, 'min_number');
+            for (var i in quiz_scores) {
+                if (_nb_good_answers >= quiz_scores[i].min_number) {
+                    _message = quiz_scores[i].message;
+                }
+            }
+            if (_message) {
+                $result_message.innerHTML = _message;
+            }
+        }
+    }
+
 }
 
 
@@ -239,13 +264,16 @@ function wpuquiz_set_scalex(el, x) {
 /* Sort an object by its "order" property
 -------------------------- */
 
-function wpuquiz_convert_and_sort(_obj) {
+function wpuquiz_convert_and_sort(_obj, _property) {
     var obj = [];
     for (var i in _obj) {
         obj.push(_obj[i]);
     }
+    if (!_property) {
+        _property = 'order';
+    }
     obj.sort(function(a, b) {
-        return parseInt(a.order, 10) - parseInt(b.order, 10);
+        return parseInt(a[_property], 10) - parseInt(b[_property], 10);
     });
     return obj;
 }

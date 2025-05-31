@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
+    var $scoresWrapper = document.getElementById('quiz-scores-wrapper');
+
     /* ----------------------------------------------------------
       Helpers
     ---------------------------------------------------------- */
@@ -56,6 +58,22 @@ document.addEventListener('DOMContentLoaded', function() {
         return _answer;
     }
 
+    function get_score(_score) {
+        if (!_score || typeof _score !== 'object') {
+            _score = {};
+        }
+        if (!_score.hasOwnProperty('id')) {
+            _score.id = 'r' + (Math.random()).toString(36).substring(2);
+        }
+        if (!_score.hasOwnProperty('min_number')) {
+            _score.min_number = 0;
+        }
+        if (!_score.hasOwnProperty('message')) {
+            _score.message = '';
+        }
+        return _score;
+    }
+
     function htmlEntities(str) {
         return String(str)
             .replace(/&/g, '&amp;')
@@ -93,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function add_answer_to_question($answers_wrapper, _question, _answer) {
-        var _answer = get_answer(_answer, get_question(_question));
+        _answer = get_answer(_answer, get_question(_question));
         var answer_html = _answer_template;
         answer_html = answer_html.replace(/##question_id##/g, htmlEntities(_question.id));
         answer_html = answer_html.replace(/##answer_id##/g, htmlEntities(_answer.id));
@@ -105,6 +123,19 @@ document.addEventListener('DOMContentLoaded', function() {
         $answer.innerHTML = answer_html;
 
         $answers_wrapper.appendChild($answer);
+    }
+
+    function add_score_to_form(_score) {
+        _score = get_score(_score);
+        var score_html = _score_template;
+        score_html = score_html.replace(/##score_id##/g, htmlEntities(_score.id));
+        score_html = score_html.replace(/##score_min_number##/g, htmlEntities(_score.min_number));
+        score_html = score_html.replace(/##score_message##/g, htmlEntities(_score.message));
+
+        var $score = document.createElement('div');
+        $score.innerHTML = score_html;
+
+        $scoresWrapper.appendChild($score);
     }
 
     function refresh_questions_order() {
@@ -122,18 +153,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var _question_template = document.getElementById('quiz-question-template').innerHTML;
     var _answer_template = document.getElementById('quiz-answer-template').innerHTML;
+    var _score_template = document.getElementById('quiz-score-message-template').innerHTML;
 
     if (!quiz_questions || quiz_questions.length === 0) {
         quiz_questions = [get_question()];
+    }
+
+    if (!quiz_scores || quiz_scores.length === 0) {
+        quiz_scores = [get_score()];
     }
 
     /* ----------------------------------------------------------
       Build form
     ---------------------------------------------------------- */
 
-    for (var i in quiz_questions) {
-        add_question_to_form(quiz_questions[i]);
-    }
+    (function() {
+        for (var i in quiz_questions) {
+            add_question_to_form(quiz_questions[i]);
+        }
+    }());
+
+    /* ----------------------------------------------------------
+      Build scores
+    ---------------------------------------------------------- */
+
+    (function() {
+        for (var i in quiz_scores) {
+            add_score_to_form(quiz_scores[i]);
+        }
+    }());
 
     /* ----------------------------------------------------------
       Events
@@ -159,6 +207,12 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         add_answer_to_question($answers_wrapper, _question);
         sortable_questions_refresh();
+    });
+
+    /* Add a new score */
+    document.getElementById('wpuquiz-add-score').addEventListener('click', function(e) {
+        e.preventDefault();
+        add_score_to_form();
     });
 
     /* Remove an answer or a question */

@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.8
+Version: 0.0.9
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.8';
+    private $plugin_version = '0.0.9';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -44,8 +44,9 @@ class WPUQuiz {
         /* ADMIN PAGE */
         add_action('add_meta_boxes', function () {
             add_meta_box('wpu-quiz-box-question', __('Questions', 'wpuquiz'), array(&$this, 'edit_page_quiz'), 'quiz');
+            add_meta_box('wpu-quiz-box-scores', __('Scores', 'wpuquiz'), array(&$this, 'edit_page_quiz_scores'), 'quiz');
         });
-        add_action('save_post', array(&$this, 'save_quiz'));
+        add_action('save_post_quiz', array(&$this, 'save_quiz'));
 
         /* SHORTCODE */
         add_shortcode('wpuquiz', array(&$this, 'render_quiz_shortcode'));
@@ -137,7 +138,7 @@ class WPUQuiz {
                 'label' => __('Show Quiz title', 'wpuquiz'),
                 'type' => 'checkbox',
                 'required' => false
-            ),
+            )
         );
         $field_groups = array(
             'wpuquiz_settings' => array(
@@ -178,7 +179,7 @@ class WPUQuiz {
         wp_enqueue_style('wpuquiz_front_style');
 
         $ignore_default_theme = $this->settings_obj->get_setting('ignore_default_theme');
-        if(!$ignore_default_theme ) {
+        if (!$ignore_default_theme) {
             wp_register_style('wpuquiz_frontdefault_style', plugins_url('assets/front-default.css', __FILE__), array(), $this->plugin_version);
             wp_enqueue_style('wpuquiz_frontdefault_style');
         }
@@ -220,6 +221,22 @@ class WPUQuiz {
 
     }
 
+    function edit_page_quiz_scores() {
+        echo '<script type="text/template" id="quiz-score-message-template">';
+        include __DIR__ . '/inc/tpl/quiz-score-message.php';
+        echo '</script>';
+
+        $quiz_scores = get_post_meta(get_the_ID(), 'quiz_scores', true);
+        if (empty($quiz_scores)) {
+            $quiz_scores = json_encode(array());
+        }
+
+        echo '<script type="text/javascript">var quiz_scores = ' . $quiz_scores . ';</script>';
+
+        echo '<div id="quiz-scores-wrapper"></div>';
+        echo '<button id="wpuquiz-add-score" class="button button-primary quiz-add-score">' . __('Add a message', 'wpuquiz') . '</button>';
+    }
+
     function save_quiz($post_id) {
 
         /* Only once */
@@ -254,6 +271,21 @@ class WPUQuiz {
         }
 
         update_post_meta($post_id, 'quiz_questions', json_encode($result));
+
+
+        if(isset($_POST['quiz_score']) && is_array($_POST['quiz_score'])) {
+            $score = array();
+            foreach ($_POST['quiz_score'] as $id => $score_data) {
+                if (isset($score_data['min_number']) && isset($score_data['message'])) {
+                    $score[$id] = array(
+                        'min_number' => intval($score_data['min_number']),
+                        'message' => sanitize_text_field($score_data['message'])
+                    );
+                }
+            }
+            update_post_meta($post_id, 'quiz_scores', json_encode($score));
+        }
+
 
     }
 
