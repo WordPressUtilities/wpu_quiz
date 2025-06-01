@@ -4,9 +4,14 @@ defined('ABSPATH') || die;
 $wpuquiz_show_splash = get_post_meta($quiz->ID, 'wpuquiz_show_splash', 1);
 $wpuquiz_show_navbar = get_post_meta($quiz->ID, 'wpuquiz_show_navbar', 1);
 $wpuquiz_show_title = get_post_meta($quiz->ID, 'wpuquiz_show_title', 1);
-$_questions = get_post_meta($quiz->ID, 'quiz_questions', 1);
-$questions = json_decode($_questions, true);
-$_scores = get_post_meta($quiz->ID, 'quiz_scores', 1);
+$questions = get_post_meta($quiz->ID, 'quiz_questions', 1);
+if (!is_array($questions)) {
+    $questions = array();
+}
+$scores = get_post_meta($quiz->ID, 'quiz_scores', 1);
+if (!is_array($scores)) {
+    $scores = array();
+}
 
 echo '<div class="wpu-quiz-front" ' . ($wpuquiz_show_splash ? 'data-quiz-has-splash="1"' : '') . ' data-quiz-id="' . $quiz->ID . '">';
 
@@ -45,7 +50,7 @@ echo '<div class="quiz-result-message-score"></div>';
 echo '</div>';
 
 /* Values */
-echo '<div><input type="hidden" name="quiz_content" value="' . esc_attr($_questions) . '" /></div>';
-echo '<div><input type="hidden" name="quiz_scores" value="' . esc_attr($_scores) . '" /></div>';
+echo '<div><input type="hidden" name="quiz_content" value="' . esc_attr(json_encode($questions)) . '" /></div>';
+echo '<div><input type="hidden" name="quiz_scores" value="' . esc_attr(json_encode($scores)) . '" /></div>';
 
 echo '</div>';

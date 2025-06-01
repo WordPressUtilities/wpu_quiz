@@ -35,6 +35,7 @@
     border: 1px solid #ddd;
 }
 
+.quiz-score-message-remove,
 .quiz-question-remove,
 .quiz-answer-remove {
     margin-top: 0.5em;
@@ -53,12 +54,14 @@
     background-color: #fff;
 }
 
+.quiz-score-message-wrapper,
 .quiz-answer-wrapper,
 .quiz-question-wrapper {
     z-index: 1;
     position: relative;
 }
 
+.quiz-score-message-sortable-handle,
 .quiz-answer-sortable-handle,
 .quiz-question-sortable-handle {
     z-index: 1;

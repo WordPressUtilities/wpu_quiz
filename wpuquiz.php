@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.9
+Version: 0.0.10
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.9';
+    private $plugin_version = '0.0.10';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -210,11 +210,11 @@ class WPUQuiz {
 
         $quiz_questions = get_post_meta(get_the_ID(), 'quiz_questions', true);
 
-        if (empty($quiz_questions)) {
-            $quiz_questions = json_encode(array());
+        if (empty($quiz_questions) || !is_array($quiz_questions)) {
+            $quiz_questions = array();
         }
 
-        echo '<script type="text/javascript">var quiz_questions = ' . $quiz_questions . ';</script>';
+        echo '<script type="text/javascript">var quiz_questions = ' . json_encode($quiz_questions) . ';</script>';
         echo '<div id="quiz-questions-wrapper"></div>';
         echo '<button id="wpuquiz-add-question" class="button button-primary quiz-add-question">' . __('Add a question', 'wpuquiz') . '</button>';
         wp_nonce_field('wpuquiz_post_form', 'wpuquiz_post_form_nonce');
@@ -227,11 +227,11 @@ class WPUQuiz {
         echo '</script>';
 
         $quiz_scores = get_post_meta(get_the_ID(), 'quiz_scores', true);
-        if (empty($quiz_scores)) {
-            $quiz_scores = json_encode(array());
+        if (empty($quiz_scores) || !is_array($quiz_scores)) {
+            $quiz_scores = array();
         }
 
-        echo '<script type="text/javascript">var quiz_scores = ' . $quiz_scores . ';</script>';
+        echo '<script type="text/javascript">var quiz_scores = ' . json_encode($quiz_scores) . ';</script>';
 
         echo '<div id="quiz-scores-wrapper"></div>';
         echo '<button id="wpuquiz-add-score" class="button button-primary quiz-add-score">' . __('Add a message', 'wpuquiz') . '</button>';
@@ -270,7 +270,7 @@ class WPUQuiz {
             }
         }
 
-        update_post_meta($post_id, 'quiz_questions', json_encode($result));
+        update_post_meta($post_id, 'quiz_questions', $result);
 
 
         if(isset($_POST['quiz_score']) && is_array($_POST['quiz_score'])) {
@@ -283,7 +283,7 @@ class WPUQuiz {
                     );
                 }
             }
-            update_post_meta($post_id, 'quiz_scores', json_encode($score));
+            update_post_meta($post_id, 'quiz_scores', $score);
         }
 
 

@@ -155,11 +155,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var _answer_template = document.getElementById('quiz-answer-template').innerHTML;
     var _score_template = document.getElementById('quiz-score-message-template').innerHTML;
 
-    if (!quiz_questions || quiz_questions.length === 0) {
+    if (!quiz_questions || quiz_questions.length === 0 || typeof quiz_questions !== 'object') {
         quiz_questions = [get_question()];
     }
 
-    if (!quiz_scores || quiz_scores.length === 0) {
+    if (!quiz_scores || quiz_scores.length === 0 || typeof quiz_scores !== 'object') {
         quiz_scores = [get_score()];
     }
 
@@ -213,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('wpuquiz-add-score').addEventListener('click', function(e) {
         e.preventDefault();
         add_score_to_form();
+        sortable_scores_refresh();
     });
 
     /* Remove an answer or a question */
@@ -230,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         $target.parentNode.removeChild($target);
         sortable_questions_refresh();
+        sortable_scores_refresh();
     });
 
     /* Form validation */
@@ -338,5 +340,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     make_answers_sortable();
+
+    /* Quiz score messages */
+    var $jQScoresWrapper = jQuery($scoresWrapper);
+    $jQScoresWrapper.sortable({
+        handle: '.quiz-score-message-sortable-handle',
+        axis: "y"
+    });
+
+    function sortable_scores_refresh() {
+        $jQScoresWrapper.sortable('refresh');
+    }
 
 });
