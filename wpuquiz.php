@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.10
+Version: 0.0.11
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.10';
+    private $plugin_version = '0.0.11';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -214,7 +214,7 @@ class WPUQuiz {
             $quiz_questions = array();
         }
 
-        echo '<script type="text/javascript">var quiz_questions = ' . json_encode($quiz_questions) . ';</script>';
+        echo '<script type="text/javascript">var wpuquiz_quiz_questions = ' . json_encode($quiz_questions) . ';</script>';
         echo '<div id="quiz-questions-wrapper"></div>';
         echo '<button id="wpuquiz-add-question" class="button button-primary quiz-add-question">' . __('Add a question', 'wpuquiz') . '</button>';
         wp_nonce_field('wpuquiz_post_form', 'wpuquiz_post_form_nonce');
@@ -231,7 +231,7 @@ class WPUQuiz {
             $quiz_scores = array();
         }
 
-        echo '<script type="text/javascript">var quiz_scores = ' . json_encode($quiz_scores) . ';</script>';
+        echo '<script type="text/javascript">var wpuquiz_quiz_scores = ' . json_encode($quiz_scores) . ';</script>';
 
         echo '<div id="quiz-scores-wrapper"></div>';
         echo '<button id="wpuquiz-add-score" class="button button-primary quiz-add-score">' . __('Add a message', 'wpuquiz') . '</button>';

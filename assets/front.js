@@ -113,7 +113,7 @@ function wpuquiz_setup_quiz($quiz) {
     (function() {
         if ($quiz.getAttribute('data-quiz-has-splash') != '1') {
             return;
-        };
+        }
 
         $quiz.querySelector('.quiz-action-start').addEventListener('click', function(e) {
             e.preventDefault();

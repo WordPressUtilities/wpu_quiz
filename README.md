@@ -1,5 +1,7 @@
 # WPU Quiz
 
+[![PHP workflow](https://github.com/WordPressUtilities/wpu_quiz/actions/workflows/php.yml/badge.svg 'PHP workflow')](https://github.com/WordPressUtilities/wpu_quiz/actions) [![JS workflow](https://github.com/WordPressUtilities/wpu_quiz/actions/workflows/js.yml/badge.svg 'JS workflow')](https://github.com/WordPressUtilities/wpu_quiz/actions)
+
 Simple quiz plugin for WordPress.
 
 ## Roadmap
@@ -17,10 +19,10 @@ Simple quiz plugin for WordPress.
 - [x] Add quiz results based on score
 - [x] Quiz Option : Add an optional splash page before the quiz starts
 - [x] Plugin Option : load default style in frontend.
-- [ ] Reorder score messages
+- [x] Reorder score messages
+- [x] Quiz Option : Show correct answer after selection
+- [x] Allow multiple good answers
 - [ ] Images for answer
-- [ ] Allow multiple good answers
-- [ ] Quiz Option : Show correct answer after selection
 
 ### Frontend
 - [x] Page numbers

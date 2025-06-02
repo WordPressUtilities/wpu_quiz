@@ -155,12 +155,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var _answer_template = document.getElementById('quiz-answer-template').innerHTML;
     var _score_template = document.getElementById('quiz-score-message-template').innerHTML;
 
-    if (!quiz_questions || quiz_questions.length === 0 || typeof quiz_questions !== 'object') {
-        quiz_questions = [get_question()];
+    if (!wpuquiz_quiz_questions || wpuquiz_quiz_questions.length === 0 || typeof wpuquiz_quiz_questions !== 'object') {
+        wpuquiz_quiz_questions = [get_question()];
     }
 
-    if (!quiz_scores || quiz_scores.length === 0 || typeof quiz_scores !== 'object') {
-        quiz_scores = [get_score()];
+    if (!wpuquiz_quiz_scores || wpuquiz_quiz_scores.length === 0 || typeof wpuquiz_quiz_scores !== 'object') {
+        wpuquiz_quiz_scores = [get_score()];
     }
 
     /* ----------------------------------------------------------
@@ -168,8 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
     ---------------------------------------------------------- */
 
     (function() {
-        for (var i in quiz_questions) {
-            add_question_to_form(quiz_questions[i]);
+        for (var i in wpuquiz_quiz_questions) {
+            add_question_to_form(wpuquiz_quiz_questions[i]);
         }
     }());
 
@@ -178,8 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
     ---------------------------------------------------------- */
 
     (function() {
-        for (var i in quiz_scores) {
-            add_score_to_form(quiz_scores[i]);
+        for (var i in wpuquiz_quiz_scores) {
+            add_score_to_form(wpuquiz_quiz_scores[i]);
         }
     }());
 
