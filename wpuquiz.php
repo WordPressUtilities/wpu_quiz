@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.11
+Version: 0.0.12
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.11';
+    private $plugin_version = '0.0.12';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'

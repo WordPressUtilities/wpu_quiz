@@ -22,7 +22,10 @@ Simple quiz plugin for WordPress.
 - [x] Reorder score messages
 - [x] Quiz Option : Show correct answer after selection
 - [x] Allow multiple good answers
+- [x] Click to go next
 - [ ] Images for answer
+- [ ] Images for question
+- [ ] Images for score
 
 ### Frontend
 - [x] Page numbers
@@ -33,6 +36,4 @@ Simple quiz plugin for WordPress.
 - [ ] Allow only one submission per user
 
 ### Maintenance
-- [ ] Github actions
-
-
+- [x] Github actions

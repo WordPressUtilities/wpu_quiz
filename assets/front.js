@@ -162,7 +162,8 @@ function wpuquiz_setup_quiz($quiz) {
             $question.setAttribute('data-i', i);
             var _button_label = $button.getAttribute(i == _last_question ? 'data-label-submit' : 'data-label-next');
             $button.setAttribute('data-label', _button_label);
-            if (questions[i].explanation || questions[i].show_answer) {
+            var _has_intermediate_step = questions[i].explanation || questions[i].show_answer;
+            if (_has_intermediate_step) {
                 _button_label = $button.getAttribute('data-label-answer');
             }
             $button.querySelector('span').innerHTML = _button_label;
@@ -172,6 +173,9 @@ function wpuquiz_setup_quiz($quiz) {
             $question.addEventListener('change', function(e) {
                 if (e.target.checked) {
                     $question.setAttribute('data-has-value', '1');
+                }
+                if (!_has_intermediate_step) {
+                    callback_next_button.call($button);
                 }
             });
 
