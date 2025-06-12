@@ -47,3 +47,13 @@
     transform: scaleX(0);
     transform-origin: top left;
 }
+
+/* ----------------------------------------------------------
+  Preview
+---------------------------------------------------------- */
+
+.wpuquiz-preview {
+    margin: 30px auto;
+    max-width: 1024px;
+    background-color: #fff;
+}

@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.12
+Version: 0.0.13
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.12';
+    private $plugin_version = '0.0.13';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -47,6 +47,10 @@ class WPUQuiz {
             add_meta_box('wpu-quiz-box-scores', __('Scores', 'wpuquiz'), array(&$this, 'edit_page_quiz_scores'), 'quiz');
         });
         add_action('save_post_quiz', array(&$this, 'save_quiz'));
+
+        /* PREVIEW */
+        add_action('edit_form_after_title', array(&$this, 'preview_quiz_url'));
+        add_action('template_redirect', array(&$this, 'preview_quiz_front'));
 
         /* SHORTCODE */
         add_shortcode('wpuquiz', array(&$this, 'render_quiz_shortcode'));
@@ -272,8 +276,7 @@ class WPUQuiz {
 
         update_post_meta($post_id, 'quiz_questions', $result);
 
-
-        if(isset($_POST['quiz_score']) && is_array($_POST['quiz_score'])) {
+        if (isset($_POST['quiz_score']) && is_array($_POST['quiz_score'])) {
             $score = array();
             foreach ($_POST['quiz_score'] as $id => $score_data) {
                 if (isset($score_data['min_number']) && isset($score_data['message'])) {
@@ -285,7 +288,6 @@ class WPUQuiz {
             }
             update_post_meta($post_id, 'quiz_scores', $score);
         }
-
 
     }
 
@@ -362,6 +364,53 @@ class WPUQuiz {
         $result_answer['order'] = $answer['order'];
 
         return $result_answer;
+    }
+
+    /* ----------------------------------------------------------
+      Preview
+    ---------------------------------------------------------- */
+
+    function preview_quiz_url($post) {
+        if ($post->post_type !== 'quiz') {
+            return;
+        }
+        $quiz_link = add_query_arg(
+            array(
+                'wpuquiz_preview' => $post->ID
+            ),
+            home_url()
+        );
+        echo '<p>';
+        echo '<strong>' . __('Preview: ', 'wpuquiz') . '</strong>';
+        echo '<a href="' . esc_url($quiz_link) . '" target="_blank">' . esc_html($quiz_link) . '</a>';
+        echo '</p>';
+
+    }
+
+    /**
+     * Preview quiz in frontend
+     */
+    function preview_quiz_front() {
+        if (!is_user_logged_in()) {
+            return;
+        }
+        if (!is_front_page()) {
+            return;
+        }
+        if (!isset($_GET['wpuquiz_preview']) || !is_numeric($_GET['wpuquiz_preview'])) {
+            return;
+        }
+        $quiz_id = intval($_GET['wpuquiz_preview']);
+        if (!current_user_can('edit_post', $quiz_id)) {
+            return;
+        }
+
+        get_header();
+        echo '<div class="wpuquiz-preview">';
+        echo do_shortcode('[wpuquiz id="' . $quiz_id . '"]');
+        echo '</div>';
+        get_footer();
+        die();
     }
 
     /* ----------------------------------------------------------
