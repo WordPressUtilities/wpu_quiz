@@ -192,7 +192,7 @@ function wpuquiz_setup_quiz($quiz) {
             return;
         }
         var $navbar_progress = $navbar.querySelector('.quiz-navbar-progress .bar'),
-            $navbar_count = $navbar.querySelector('.quiz-navbar-count');
+            $navbar_count = $navbar.querySelector('.quiz-navbar-count .count');
 
         /* Watch page change */
         $quiz.addEventListener('wpuquiz:pagechange', function(e) {
@@ -224,12 +224,14 @@ function wpuquiz_setup_quiz($quiz) {
         /* Show result */
         $list.setAttribute('data-visible', '0');
         $result.setAttribute('data-visible', '1');
-        $result.querySelector('.quiz-result-good-answers').innerHTML = _nb_good_answers + '/' + questions.length;
+        $result.querySelector('.quiz-result-good-answers .count').innerHTML = _nb_good_answers + '/' + questions.length;
 
         /* Show scores */
         var quiz_scores = JSON.parse($quiz.querySelector('input[name="quiz_scores"]').value);
         if (quiz_scores) {
             var _message = '',
+                _title = '',
+                $result_title = $result.querySelector('.quiz-result-title-score'),
                 $result_message = $result.querySelector('.quiz-result-message-score');
 
             /* Sort */
@@ -237,7 +239,11 @@ function wpuquiz_setup_quiz($quiz) {
             for (var i in quiz_scores) {
                 if (_nb_good_answers >= quiz_scores[i].min_number) {
                     _message = quiz_scores[i].message;
+                    _title = quiz_scores[i].title;
                 }
+            }
+            if (_title) {
+                $result_title.innerHTML = _title;
             }
             if (_message) {
                 $result_message.innerHTML = _message;

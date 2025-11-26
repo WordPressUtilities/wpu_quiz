@@ -20,7 +20,7 @@ if ($wpuquiz_show_splash) {
     if ($wpuquiz_show_title) {
         echo '<h2 class="quiz-splash-title">' . esc_html($quiz->post_title) . '</h2>';
     }
-    echo '<button class="quiz-action-start" data-action="start-quiz">' . __('Start Quiz', 'wpuquiz') . '</button>';
+    echo '<button class="quiz-action-start" data-action="start-quiz"><span>' . __('Start Quiz', 'wpuquiz') . '</span></button>';
     echo '</div>';
 }
 
@@ -33,7 +33,7 @@ if ($wpuquiz_show_title && !$wpuquiz_show_splash) {
 if ($wpuquiz_show_navbar) {
     echo '<div class="quiz-navbar">';
     echo '<div class="quiz-navbar-progress"><div class="bar"></div></div>';
-    echo '<div class="quiz-navbar-count">1/' . count($questions) . '</div>';
+    echo '<div class="quiz-navbar-count">' . apply_filters('wpu_quiz_navbar_count_before', '') . '<span class="count">1/' . count($questions) . '</span></div>';
     echo '</div>';
 }
 
@@ -44,8 +44,8 @@ echo '</div>';
 
 /* Result */
 echo '<div class="quiz-result" data-visible="0">';
-echo '<h3>' . __('Thank you!', 'wpuquiz') . '</h3>';
-echo '<div class="quiz-result-good-answers"></div>';
+echo '<h3 class="quiz-result-title-score">' . __('Thank you!', 'wpuquiz') . '</h3>';
+echo '<div class="quiz-result-good-answers">' . apply_filters('wpu_quiz_result_good_answers_before', '') . '<div class="count"></div></div>';
 echo '<div class="quiz-result-message-score"></div>';
 echo '</div>';
 

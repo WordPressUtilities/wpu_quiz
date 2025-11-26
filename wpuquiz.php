@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.13
+Version: 0.0.14
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.13';
+    private $plugin_version = '0.0.14';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -115,7 +115,8 @@ class WPUQuiz {
         );
         $this->settings = array(
             'ignore_default_theme' => array(
-                'label' => __('Load default CSS', 'wpuquiz')
+                'label' => __('Ignore default theme', 'wpuquiz'),
+                'type' => 'checkbox',
             )
         );
         require_once __DIR__ . '/inc/WPUBaseSettings/WPUBaseSettings.php';
@@ -279,9 +280,10 @@ class WPUQuiz {
         if (isset($_POST['quiz_score']) && is_array($_POST['quiz_score'])) {
             $score = array();
             foreach ($_POST['quiz_score'] as $id => $score_data) {
-                if (isset($score_data['min_number']) && isset($score_data['message'])) {
+                if (isset($score_data['min_number']) && isset($score_data['title']) && isset($score_data['message'])) {
                     $score[$id] = array(
                         'min_number' => intval($score_data['min_number']),
+                        'title' => sanitize_text_field($score_data['title']),
                         'message' => sanitize_text_field($score_data['message'])
                     );
                 }

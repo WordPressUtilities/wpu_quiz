@@ -15,6 +15,7 @@
 }
 
 .quiz-score-message input[type="number"],
+.quiz-score-message input[type="text"],
 .quiz-answer-wrapper input[type="text"],
 .quiz-score-message textarea,
 .quiz-question-settings textarea,

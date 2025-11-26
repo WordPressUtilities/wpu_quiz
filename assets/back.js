@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!_score.hasOwnProperty('min_number')) {
             _score.min_number = 0;
         }
+        if (!_score.hasOwnProperty('title')) {
+            _score.title = '';
+        }
         if (!_score.hasOwnProperty('message')) {
             _score.message = '';
         }
@@ -130,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var score_html = _score_template;
         score_html = score_html.replace(/##score_id##/g, htmlEntities(_score.id));
         score_html = score_html.replace(/##score_min_number##/g, htmlEntities(_score.min_number));
+        score_html = score_html.replace(/##score_title##/g, htmlEntities(_score.title));
         score_html = score_html.replace(/##score_message##/g, htmlEntities(_score.message));
 
         var $score = document.createElement('div');

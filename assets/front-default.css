@@ -29,6 +29,15 @@
 
 /* Answers */
 
+.quiz-question-answer-item {
+    z-index: 1;
+    position: relative;
+}
+
+.quiz-question-answer-item label {
+    display: block!important;
+}
+
 .quiz-question-answer-item[data-has-correct-answer="0"] label {
     text-decoration: line-through;
 }
