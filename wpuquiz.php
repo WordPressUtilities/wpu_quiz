@@ -4,7 +4,7 @@ Plugin Name: WPU Quiz
 Plugin URI: https://github.com/WordPressUtilities/wpuquiz
 Update URI: https://github.com/WordPressUtilities/wpuquiz
 Description: Simple quiz plugin for WordPress.
-Version: 0.0.14
+Version: 0.0.15
 Author: darklg
 Author URI: https://darklg.me/
 Text Domain: wpuquiz
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 class WPUQuiz {
-    private $plugin_version = '0.0.14';
+    private $plugin_version = '0.0.15';
     private $plugin_settings = array(
         'id' => 'wpuquiz',
         'name' => 'WPU Quiz'
@@ -123,7 +123,7 @@ class WPUQuiz {
         $this->settings_obj = new \wpuquiz\WPUBaseSettings($this->settings_details, $this->settings);
     }
 
-    function load_dependencies_base_fields() {
+    public function load_dependencies_base_fields() {
         require_once __DIR__ . '/inc/WPUBaseFields/WPUBaseFields.php';
         $fields = array(
             'wpuquiz_show_splash' => array(
@@ -151,7 +151,7 @@ class WPUQuiz {
                 'post_type' => 'quiz'
             )
         );
-        new \wpu_quiz\WPUBaseFields($fields, $field_groups);
+        new \wpuquiz\WPUBaseFields($fields, $field_groups);
     }
 
     public function admin_enqueue_scripts() {
@@ -203,7 +203,7 @@ class WPUQuiz {
       Admin edition
     ---------------------------------------------------------- */
 
-    function edit_page_quiz() {
+    public function edit_page_quiz() {
         /* Template for a question */
         echo '<script type="text/template" id="quiz-question-template">';
         include __DIR__ . '/inc/tpl/quiz-question.php';
@@ -226,7 +226,7 @@ class WPUQuiz {
 
     }
 
-    function edit_page_quiz_scores() {
+    public function edit_page_quiz_scores() {
         echo '<script type="text/template" id="quiz-score-message-template">';
         include __DIR__ . '/inc/tpl/quiz-score-message.php';
         echo '</script>';
@@ -242,7 +242,7 @@ class WPUQuiz {
         echo '<button id="wpuquiz-add-score" class="button button-primary quiz-add-score">' . __('Add a message', 'wpuquiz') . '</button>';
     }
 
-    function save_quiz($post_id) {
+    public function save_quiz($post_id) {
 
         /* Only once */
         if (defined('WPUQUIZ__SAVE_POST')) {
@@ -293,7 +293,7 @@ class WPUQuiz {
 
     }
 
-    function validate_question($question, $id) {
+    public function validate_question($question, $id) {
         $result_question = array(
             'explanation' => '',
             'show_answer' => 0,
@@ -341,7 +341,7 @@ class WPUQuiz {
 
     }
 
-    function validate_answer($answer, $answer_id) {
+    public function validate_answer($answer, $answer_id) {
         $result_answer = array(
             'id' => $answer_id,
             'text' => '',
@@ -372,7 +372,7 @@ class WPUQuiz {
       Preview
     ---------------------------------------------------------- */
 
-    function preview_quiz_url($post) {
+    public function preview_quiz_url($post) {
         if ($post->post_type !== 'quiz') {
             return;
         }
@@ -392,7 +392,7 @@ class WPUQuiz {
     /**
      * Preview quiz in frontend
      */
-    function preview_quiz_front() {
+    public function preview_quiz_front() {
         if (!is_user_logged_in()) {
             return;
         }
@@ -440,7 +440,7 @@ class WPUQuiz {
 
     }
 
-    function load_quiz_template() {
+    public function load_quiz_template() {
 
         /* Load once */
         if (defined('WPUQUIZ__TEMPLATE_INSERTED')) {

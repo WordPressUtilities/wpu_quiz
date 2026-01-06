@@ -1,5 +1,5 @@
 <?php
-namespace wpu_quiz;
+namespace wpuquiz;
 
 /*
 Class Name: WPU Base Fields

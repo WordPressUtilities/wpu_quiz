@@ -1,0 +1,274 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2026-01-06 17:45+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;_x;_e\n"
+"X-Generator: Poedit 3.8\n"
+"X-Poedit-SearchPath-0: ../.\n"
+"X-Poedit-SearchPathExcluded-0: inc/WPUBaseAdminDatas\n"
+"X-Poedit-SearchPathExcluded-1: inc/WPUBaseAdminPage\n"
+"X-Poedit-SearchPathExcluded-2: inc/WPUBaseCron\n"
+"X-Poedit-SearchPathExcluded-3: inc/WPUBaseEmail\n"
+"X-Poedit-SearchPathExcluded-4: inc/WPUBaseFields\n"
+"X-Poedit-SearchPathExcluded-5: inc/WPUBaseFileCache\n"
+"X-Poedit-SearchPathExcluded-6: inc/WPUBaseMessages\n"
+"X-Poedit-SearchPathExcluded-7: inc/WPUBaseSettings\n"
+"X-Poedit-SearchPathExcluded-8: inc/WPUBaseToolbox\n"
+"X-Poedit-SearchPathExcluded-9: inc/WPUBaseUpdate\n"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:167
+msgid "Select a value"
+msgstr "Selecteer een waarde"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:254
+msgid "Required"
+msgstr "Verplicht"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:318
+msgid "Select a file"
+msgstr "Selecteer een bestand"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:319
+msgid "Remove file"
+msgstr "Verwijder bestand"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:321
+msgid "Select an image"
+msgstr "Selecteer een afbeelding"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:322
+msgid "Remove image"
+msgstr "Verwijder afbeelding"
+
+#: .././inc/WPUBaseFields/WPUBaseFields.php:367
+msgid "This field is invalid"
+msgstr "Dit veld is ongeldig"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:135
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:703
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:710
+#: .././inc/tpl/quiz-question.php:19 .././wpuquiz.php:150
+msgid "Settings"
+msgstr "Instellingen"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:165
+msgid "No"
+msgstr "Nee"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:165
+msgid "Yes"
+msgstr "Ja"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:214
+msgid "Check all"
+msgstr "Vink alles aan"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:215
+msgid "Uncheck all"
+msgstr "Verwijder alles"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:329
+msgid "Settings saved."
+msgstr "Instellingen opgeslagen."
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:389
+msgid "Upload New Media"
+msgstr "Nieuwe media uploaden"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:590
+msgid "Language"
+msgstr "Taal"
+
+#: .././inc/WPUBaseSettings/WPUBaseSettings.php:725
+msgid "Save"
+msgstr "Opslaan"
+
+#: .././inc/tpl/quiz-answer.php:3
+msgid "Answer"
+msgstr "Antwoord"
+
+#: .././inc/tpl/quiz-answer.php:12
+msgid "Correct answer"
+msgstr "Juiste antwoord"
+
+#: .././inc/tpl/quiz-answer.php:16 .././inc/tpl/quiz-question.php:31
+#: .././inc/tpl/quiz-score-message.php:19
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: .././inc/tpl/quiz-front-template.php:17
+msgid "Answer this"
+msgstr "Beantwoord dit"
+
+#: .././inc/tpl/quiz-front-template.php:17
+msgid "Next"
+msgstr "Volgende"
+
+#: .././inc/tpl/quiz-front-template.php:17
+msgid "Finish"
+msgstr "Voltooien"
+
+#: .././inc/tpl/quiz-front.php:23
+msgid "Start Quiz"
+msgstr "Start toets"
+
+#: .././inc/tpl/quiz-front.php:47
+msgid "Thank you!"
+msgstr "Bedankt!"
+
+#: .././inc/tpl/quiz-question.php:4
+msgid "Question"
+msgstr "Vraag"
+
+#: .././inc/tpl/quiz-question.php:12
+msgid "Answers"
+msgstr "Antwoorden"
+
+#: .././inc/tpl/quiz-question.php:15
+msgid "Add Answer"
+msgstr "Antwoord toevoegen"
+
+#: .././inc/tpl/quiz-question.php:22
+msgid "Show Answer before going to next question"
+msgstr "Laat het antwoord zien voordat je naar de volgende vraag gaat"
+
+#: .././inc/tpl/quiz-question.php:25
+msgid "Explanation of the correct answer"
+msgstr "Uitleg van het juiste antwoord"
+
+#: .././inc/tpl/quiz-score-message.php:5
+msgid "Minimum number of correct answers"
+msgstr "Minimum aantal juiste antwoorden"
+
+#: .././inc/tpl/quiz-score-message.php:9
+msgid "Title"
+msgstr "Titel"
+
+#: .././inc/tpl/quiz-score-message.php:13
+msgid "Message"
+msgstr "Bericht"
+
+#: .././wpuquiz.php:46
+msgid "Questions"
+msgstr "Vragen"
+
+#: .././wpuquiz.php:47
+msgid "Scores"
+msgstr "Scores"
+
+#: .././wpuquiz.php:71
+msgid "Simple quiz plugin for WordPress."
+msgstr "Eenvoudige quizplugin voor WordPress."
+
+#: .././wpuquiz.php:78 .././wpuquiz.php:82 .././wpuquiz.php:86
+msgid "Quiz"
+msgstr "Toets"
+
+#: .././wpuquiz.php:85
+msgid "Quizzes"
+msgstr "Quizzen"
+
+#: .././wpuquiz.php:87
+msgid "Add New"
+msgstr "Nieuwe toevoegen"
+
+#: .././wpuquiz.php:88
+msgid "Add New Quiz"
+msgstr "Nieuwe Quiz Toevoegen"
+
+#: .././wpuquiz.php:89
+msgid "Edit Quiz"
+msgstr "Wijzig quiz"
+
+#: .././wpuquiz.php:90
+msgid "New Quiz"
+msgstr "Nieuwe Quiz"
+
+#: .././wpuquiz.php:91
+msgid "View Quiz"
+msgstr "Bekijk Quiz"
+
+#: .././wpuquiz.php:92
+msgid "Search Quizzes"
+msgstr "Zoek toetsen"
+
+#: .././wpuquiz.php:93
+msgid "No quizzes found."
+msgstr "Sorry, we hebben geen quizzen gevonden."
+
+#: .././wpuquiz.php:94
+msgid "No quizzes found in Trash."
+msgstr "Geen quizzen gevonden in Trash."
+
+#: .././wpuquiz.php:112
+msgid "Quiz Settings"
+msgstr "Quiz-instellingen"
+
+#: .././wpuquiz.php:118
+msgid "Ignore default theme"
+msgstr "Negeer standaardthema"
+
+#: .././wpuquiz.php:131
+msgid "Show splash screen"
+msgstr "Toon splashscreen"
+
+#: .././wpuquiz.php:137
+msgid "Show nav bar"
+msgstr "Toon navigatiebalk"
+
+#: .././wpuquiz.php:143
+msgid "Show Quiz title"
+msgstr "Toon Quiz titel"
+
+#: .././wpuquiz.php:169
+msgid "Are you sure you want to remove this?"
+msgstr "Weet je zeker dat je dit wilt verwijderen?"
+
+#: .././wpuquiz.php:171
+msgid "You must add at least one question."
+msgstr "Je moet minstens één vraag toevoegen."
+
+#: .././wpuquiz.php:172
+msgid "A question is missing text."
+msgstr "Een vraag ontbreekt tekst."
+
+#: .././wpuquiz.php:173
+msgid "A question is missing answers."
+msgstr "Een vraag is ontbrekende antwoorden."
+
+#: .././wpuquiz.php:174
+msgid "An answer is missing text."
+msgstr "Een antwoord is ontbrekende tekst."
+
+#: .././wpuquiz.php:175
+msgid "A question is missing a correct answer."
+msgstr "Een vraag is het missen van een correct antwoord."
+
+#: .././wpuquiz.php:196
+msgid "Good answer"
+msgstr "Goed antwoord"
+
+#: .././wpuquiz.php:197
+msgid "Wrong answer"
+msgstr "Antwoord onjuist"
+
+#: .././wpuquiz.php:224
+msgid "Add a question"
+msgstr "Voeg een vraag toe"
+
+#: .././wpuquiz.php:242
+msgid "Add a message"
+msgstr "Voeg een bericht toe"
+
+#: .././wpuquiz.php:386
+msgid "Preview: "
+msgstr "Voorbeeld: "
